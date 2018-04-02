@@ -30,7 +30,7 @@
 
 div.box {
   cursor: pointer;
-  height: 40px;
+  height: 30px;
   width: 100px;
   margin: 0px;
   float: left;
@@ -40,4 +40,8 @@ div.box {
 
 div.selected{
   background-color: aqua;
+}
+
+div.disabled{
+  background-color: red;
 }
