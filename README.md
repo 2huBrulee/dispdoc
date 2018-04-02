@@ -1,3 +1,3 @@
-Entrar al directorio
-npm instal
-npm start
+[Entrar al directorio]
+[npm install]
+[npm start]
