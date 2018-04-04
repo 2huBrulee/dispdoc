@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 import data from "./data.json";
@@ -19,6 +20,13 @@ class App extends Component {
         this.selectBox = this.selectBox.bind(this)
         this.selectAll = this.selectAll.bind(this)
         this.select = this.select.bind(this)
+    }
+
+    componentWillMount(){
+        axios.get('http://stif.com/sel.json').then(res =>{
+            const selection = res.data;
+            this.setState({selection});
+        })
     }
 
     select(n,isEnabled,isSelectAll){
@@ -42,6 +50,12 @@ class App extends Component {
         }))
     }
 
+    sendDisp(){
+        axios.post('http://127.0.0.1:8000/disponibilidad/api',{teacher:"1",selection:this.state.selection}).then(function (response) {
+            console.log('salvado')
+        })
+    }
+
 
   render() {
         const { select } = this
@@ -54,6 +68,11 @@ class App extends Component {
         </header>
           <div>
               <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
+          </div>
+          <div>
+              <button onClick={this.sendDisp}>
+                  Guardar
+              </button>
           </div>
       </div>
     );
