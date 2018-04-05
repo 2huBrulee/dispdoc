@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import logo from './logo.svg';
+import logo from './teacher.svg';
 import './App.css';
 import data from "./data.json";
 import BoxGrid from './BoxGrid';
@@ -20,6 +20,7 @@ class App extends Component {
         this.selectBox = this.selectBox.bind(this)
         this.selectAll = this.selectAll.bind(this)
         this.select = this.select.bind(this)
+        this.sendDisp = this.sendDisp.bind(this)
     }
 
     componentWillMount(){
@@ -51,7 +52,11 @@ class App extends Component {
     }
 
     sendDisp(){
-        axios.post('http://127.0.0.1:8000/disponibilidad/api',{teacher:"1",selection:this.state.selection}).then(function (response) {
+        const data = {
+            teacher: "3",
+                selection:this.state.selection,
+        };
+        axios.post('http://127.0.0.1:8000/disponibilidad/api',data).then(function (response) {
             console.log('salvado')
         })
     }
@@ -63,10 +68,11 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-
+            <h1 className="App-title">  Disponibilidad del docente</h1>
+            <img src={logo} className="App-logo" alt="logo" />
         </header>
           <div>
+              <h1 className="App-sub-title">Disponibilidad de horario</h1>
               <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
           </div>
           <div>

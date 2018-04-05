@@ -31,7 +31,7 @@ const BoxGrid = ({rows, columns, selection, enabled, onSelect=f=>f})=>
                 </tr>
             )}
             <tr>
-                <td>Seleccionar todo</td>
+                <td className="Seleccionar">Seleccionar todo</td>
                 {columns.map((n,i)=>
                     <td key={(i+1)*1000}>
                         <Box key={(i+1)*1000}

@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
+  animation: bounceIn 6s;
   height: 80px;
 }
 
@@ -13,35 +13,58 @@
   padding: 20px;
   color: white;
 }
-
 .App-title {
-  font-size: 1.5em;
+  font: 150% fantasy;
+  animation: bounceIn 5s;
+  color: #EED241;
 }
-
+.App-sub-title {
+  font-size: 20px;
+  font-style: italic;
+  text-align: left;
+  color: #222;
+}
 .App-intro {
   font-size: large;
 }
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.Seleccionar{
+  font-size: 15px;
+  color: #CD6155;
 }
 
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/*.App-tabla{
+    flex-direction: row;
+    margin-top: 400px;
+    margin-bottom: 520px;
+}*/
 
 div.box {
   cursor: pointer;
-  height: 30px;
-  width: 100px;
+  height: 20px;
+  width: 80px;
   margin: 0px;
   float: left;
-  background-color: gray;
+  background-color: #DBFD0D;
 
 }
 
 div.selected{
-  background-color: aqua;
+  background-color: #FD0D34;
 }
 
 div.disabled{
-  background-color: red;
+  background-color: #E2D5D2;
 }
