@@ -5,6 +5,9 @@ import './App.css';
 import data from "./data.json";
 import { Navbar,Nav,NavItem,NavDropdown,MenuItem} from 'react-bootstrap';
 import BoxGrid from './BoxGrid';
+import { ButtonToolbar, Button} from 'react-bootstrap';
+import InformacionAcademica from './InformationAcademic';
+import InformacionPersonal from './InformationPersonal';
 
 class App extends Component {
 
@@ -74,15 +77,26 @@ class App extends Component {
                 <div>Disponibilidad del docente</div></h1>
         </header>
 
+          <InformacionPersonal>
+          </InformacionPersonal>
+
+          <InformacionAcademica>
+          </InformacionAcademica>
+
           <div>
               <h1 className="App-sub-title">Disponibilidad de horario</h1>
               <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
           </div>
-          <div>
-              <button onClick={this.sendDisp}>
-                  Guardar
-              </button>
-          </div>
+
+
+          <ButtonToolbar>
+            <Button bsStyle="primary">Primary</Button>
+
+          </ButtonToolbar>
+
+
+
+
       </div>
     );
   }
