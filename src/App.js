@@ -4,7 +4,11 @@ import logo from './teacher.svg';
 import './App.css';
 import data from "./data.json";
 import BoxGrid from './BoxGrid';
+import { ButtonToolbar, Button} from 'react-bootstrap';
+import InformacionAcademica from './InformationAcademic';
+import InformacionPersonal from './InformationPersonal';
 import PhotoPanel from './PhotoPanel';
+
 
 class App extends Component {
 
@@ -64,6 +68,7 @@ class App extends Component {
 
 
   render() {
+
         const { select } = this;
         const { rows,columns,selection,enabled } = this.state;
         return (
@@ -73,7 +78,12 @@ class App extends Component {
                     <div>Disponibilidad del docente</div></h1>
             </header>
             <PhotoPanel/>
-            <div>
+                <InformacionPersonal>
+          </InformacionPersonal>
+
+          <InformacionAcademica>
+          </InformacionAcademica>      
+      <div>
                 <h1 className="App-sub-title">Disponibilidad de horario</h1>
                 <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
             </div>
@@ -82,6 +92,10 @@ class App extends Component {
                         Guardar
                     </button>
                 </div>
+                <ButtonToolbar>
+            <Button bsStyle="primary">Primary</Button>
+
+          </ButtonToolbar>
             </div>
     );
   }
