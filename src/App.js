@@ -8,7 +8,7 @@ import { ButtonToolbar, Button} from 'react-bootstrap';
 import InformacionAcademica from './InformationAcademic';
 import InformacionPersonal from './InformationPersonal';
 import PhotoPanel from './PhotoPanel';
-
+import { Grid, Col} from 'react-bootstrap'
 
 class App extends Component {
 
@@ -73,30 +73,33 @@ class App extends Component {
         const { rows,columns,selection,enabled } = this.state;
         return (
             <div className="App">
-            <header className="App-header">
-                <h1 className="App-title"><img src={logo} className="App-logo" alt="logo" />
-                    <div>Disponibilidad del docente</div></h1>
-            </header>
-            <PhotoPanel/>
-                <InformacionPersonal>
-          </InformacionPersonal>
+                <header className="App-header">
+                    <h1 className="App-title"><img src={logo} className="App-logo" alt="logo" />
+                        <div>Disponibilidad del docente</div></h1>
+                </header>
 
-          <InformacionAcademica>
-          </InformacionAcademica>      
-      <div>
-                <h1 className="App-sub-title">Disponibilidad de horario</h1>
-                <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
-            </div>
-                <div>
-                    <button onClick={this.sendDisp}>
-                        Guardar
-                    </button>
-                </div>
-                <ButtonToolbar>
-            <Button bsStyle="primary">Primary</Button>
+                <Grid>
+                    <Col md={9}>
+                         <InformacionPersonal>
+                        </InformacionPersonal>
 
-          </ButtonToolbar>
+                         <InformacionAcademica>
+                         </InformacionAcademica>
+
+                         <div>
+                            <h1 className="App-sub-title">Disponibilidad de horario</h1>
+                            <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
+                        </div>
+                        <div>
+                            <button onClick={this.sendDisp}>Guardar</button>
+                        </div>
+                    </Col>
+                    <Col md={3}>
+                        <PhotoPanel/>
+                    </Col>
+                </Grid>
             </div>
+
     );
   }
 }
