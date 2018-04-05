@@ -3,11 +3,12 @@ import axios from 'axios';
 import logo from './teacher.svg';
 import './App.css';
 import data from "./data.json";
-import { Navbar,Nav,NavItem,NavDropdown,MenuItem} from 'react-bootstrap';
 import BoxGrid from './BoxGrid';
 import { ButtonToolbar, Button} from 'react-bootstrap';
 import InformacionAcademica from './InformationAcademic';
 import InformacionPersonal from './InformationPersonal';
+import PhotoPanel from './PhotoPanel';
+
 
 class App extends Component {
 
@@ -67,37 +68,35 @@ class App extends Component {
 
 
   render() {
-        const { select } = this
-      const { rows,columns,selection,enabled } = this.state
-    return (
 
-      <div className="App">
-        <header className="App-header">
-            <h1 className="App-title"><img src={logo} className="App-logo" alt="logo" />
-                <div>Disponibilidad del docente</div></h1>
-        </header>
-
-          <InformacionPersonal>
+        const { select } = this;
+        const { rows,columns,selection,enabled } = this.state;
+        return (
+            <div className="App">
+            <header className="App-header">
+                <h1 className="App-title"><img src={logo} className="App-logo" alt="logo" />
+                    <div>Disponibilidad del docente</div></h1>
+            </header>
+            <PhotoPanel/>
+                <InformacionPersonal>
           </InformacionPersonal>
 
           <InformacionAcademica>
-          </InformacionAcademica>
-
-          <div>
-              <h1 className="App-sub-title">Disponibilidad de horario</h1>
-              <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
-          </div>
-
-
-          <ButtonToolbar>
+          </InformacionAcademica>      
+      <div>
+                <h1 className="App-sub-title">Disponibilidad de horario</h1>
+                <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
+            </div>
+                <div>
+                    <button onClick={this.sendDisp}>
+                        Guardar
+                    </button>
+                </div>
+                <ButtonToolbar>
             <Button bsStyle="primary">Primary</Button>
 
           </ButtonToolbar>
-
-
-
-
-      </div>
+            </div>
     );
   }
 }
