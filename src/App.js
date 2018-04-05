@@ -5,6 +5,7 @@ import './App.css';
 import data from "./data.json";
 import BoxGrid from './BoxGrid';
 import PhotoPanel from './PhotoPanel';
+import PreferencesPanel from "./PreferencesPanel";
 
 class App extends Component {
 
@@ -14,7 +15,12 @@ class App extends Component {
             rows : data[0].rows,
             columns : data[0].columns,
             selection: [],
-            enabled: data[0].enabled
+            enabled: data[0].enabled,
+            courses: [
+                'curso 1', 'curso 2', 'curso 3'
+            ],
+            coursesSelected: [
+            ]
         }
         for (var i=0;i<this.state.rows.length*this.state.columns.length;i++)
             this.state.selection.push(false);
@@ -81,6 +87,9 @@ class App extends Component {
                     <button onClick={this.sendDisp}>
                         Guardar
                     </button>
+                </div>
+                <div>
+                    <PreferencesPanel notSelectedArray={this.state.courses} selectedArray={this.state.coursesSelected}/>
                 </div>
             </div>
     );
