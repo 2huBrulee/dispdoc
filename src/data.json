@@ -33,6 +33,70 @@
       0,0,0,0,0,0,0,0,0,0,0,1,1,1,
       1,1,1,1,1,1,1,1,1,1,1,1,1,1,
       1,1,1,1,1,1,1,1,1,1,1,1,1,1
+    ],
+    "programas":[
+      {
+        "id_programa": 1,
+        "nom_programa": "Programa 1",
+        "cursos": [
+          {
+            "id_curso": 1,
+            "nom_curso": "Curso 1"
+          },
+          {
+            "id_curso": 2,
+            "nom_curso": "Curso 2"
+          },
+          {
+            "id_curso": 3,
+            "nom_curso": "Curso 3"
+          },
+          {
+            "id_curso": 4,
+            "nom_curso": "Curso 4"
+          }
+        ]
+      },
+      {
+        "id_programa": 2,
+        "nom_programa": "Programa 2",
+        "cursos": [
+          {
+            "id_curso": 5,
+            "nom_curso": "Curso 11"
+          },
+          {
+            "id_curso": 6,
+            "nom_curso": "Curso 12"
+          }
+        ]
+      }
+    ],
+    "seleccion": [
+      {
+        "id_programa": 1,
+        "nom_programa": "Programa 1",
+        "cursos": [
+          {
+            "id_curso": 2,
+            "nom_curso": "Curso 2"
+          }
+        ]
+      },
+      {
+        "id_programa": 2,
+        "nom_programa": "Programa 2",
+        "cursos": [
+          {
+            "id_curso": 5,
+            "nom_curso": "Curso 11"
+          },
+          {
+            "id_curso": 6,
+            "nom_curso": "Curso 12"
+          }
+        ]
+      }
     ]
   }
 ]

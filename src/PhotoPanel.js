@@ -17,6 +17,6 @@ const PhotoPanel = ({photo="https://78.media.tumblr.com/1eef02b917d63d9a83f90e32
 
 export default PhotoPanel
 
-PhotoPanel.PropTypes = {
+PhotoPanel.propTypes = {
     photo: PropTypes.string,
 }
