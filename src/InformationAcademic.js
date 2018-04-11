@@ -10,7 +10,7 @@ const InformacionAcademica = ({})=>
 
             <Panel.Body>
 
-                <Grid>
+
                     <Row className="show-grid">
                     <Col md={6}>
                         <TextandInput
@@ -44,7 +44,7 @@ const InformacionAcademica = ({})=>
                             valorCampo="Doctorado de Prueba"/>
                     </Col>
                     </Row>
-                </Grid>
+
 
             </Panel.Body>
 

@@ -11,7 +11,7 @@ const InformacionPersonal = ({})=>
 
             <Panel.Body>
 
-                <Grid>
+
                     <Row className="show-grid">
                         <Col md={6}>
                             <TextandInput
@@ -51,7 +51,7 @@ const InformacionPersonal = ({})=>
 
                         </Col>
                     </Row>
-                </Grid>
+
 
             </Panel.Body>
 
