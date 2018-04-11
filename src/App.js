@@ -4,8 +4,12 @@ import logo from './teacher.svg';
 import './App.css';
 import data from "./data.json";
 import BoxGrid from './BoxGrid';
+import { ButtonToolbar, Button} from 'react-bootstrap';
+import InformacionAcademica from './InformationAcademic';
+import InformacionPersonal from './InformationPersonal';
 import PhotoPanel from './PhotoPanel';
 import PreferencesPanel from "./PreferencesPanel";
+import { Grid, Col} from 'react-bootstrap'
 
 class App extends Component {
 
@@ -28,12 +32,12 @@ class App extends Component {
         this.handleMS = this.handleMS.bind(this)
     }
 
-/*    componentWillMount(){
+    componentWillMount(){
         axios.get('http://stif.com/sel.json').then(res =>{
             const selection = res.data;
             this.setState({selection});
         })
-    }*/
+    }
 
     select(n,isEnabled,isSelectAll){
         if (isEnabled)  this.selectBox(n)
@@ -88,20 +92,31 @@ class App extends Component {
         const { rows,columns,selection,enabled } = this.state;
         return (
             <div className="App">
-            <header className="App-header">
-                <h1 className="App-title"><img src={logo} className="App-logo" alt="logo" />
-                    <div>Disponibilidad del docente</div></h1>
-            </header>
-            <PhotoPanel/>
-            <div>
-                <h1 className="App-sub-title">Disponibilidad de horario</h1>
-                <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
-            </div>
-                <div>
-                    <button onClick={this.sendDisp}>
-                        Guardar
-                    </button>
-                </div>
+                <header className="App-header">
+                    <h1 className="App-title"><img src={logo} className="App-logo" alt="logo" />
+                        <div>Disponibilidad del docente</div></h1>
+                </header>
+
+                <Grid>
+                    <Col md={9}>
+                         <InformacionPersonal>
+                        </InformacionPersonal>
+
+                         <InformacionAcademica>
+                         </InformacionAcademica>
+
+                         <div>
+                            <h1 className="App-sub-title">Disponibilidad de horario</h1>
+                            <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
+                        </div>
+                        <div>
+                            <button onClick={this.sendDisp}>Guardar</button>
+                        </div>
+                    </Col>
+                    <Col md={3}>
+                        <PhotoPanel/>
+                    </Col>
+                </Grid>
                 <div>
                     {console.log("TIOS",this.state.coursesSelection)}
                     <PreferencesPanel notSelectedArray={this.state.values} selectedArray={this.state.coursesSelection} changeSelection={handleMS}/>
