@@ -16,11 +16,8 @@ class App extends Component {
             columns : data[0].columns,
             selection: [],
             enabled: data[0].enabled,
-            courses: [
-                'curso 1', 'curso 2', 'curso 3'
-            ],
-            coursesSelected: [
-            ]
+            values: data[0].programas,
+            coursesSelection: data[0].seleccion
         }
         for (var i=0;i<this.state.rows.length*this.state.columns.length;i++)
             this.state.selection.push(false);
@@ -28,14 +25,15 @@ class App extends Component {
         this.selectAll = this.selectAll.bind(this)
         this.select = this.select.bind(this)
         this.sendDisp = this.sendDisp.bind(this)
+        this.handleMS = this.handleMS.bind(this)
     }
 
-    componentWillMount(){
+/*    componentWillMount(){
         axios.get('http://stif.com/sel.json').then(res =>{
             const selection = res.data;
             this.setState({selection});
         })
-    }
+    }*/
 
     select(n,isEnabled,isSelectAll){
         if (isEnabled)  this.selectBox(n)
@@ -68,9 +66,25 @@ class App extends Component {
         })
     }
 
+    handleMS = (selectedOption, programa) =>{
+        console.log(selectedOption);
+        programa = 0;
+        let selectedArray = selectedOption.split(',');
+        let cursos =  this.state.values[programa].cursos.filter((curso)=>true);
+        let xd = this.state.values[programa]
+        xd.cursos = cursos
+
+         console.log(cursos);
+        this.setState(prevState => ({
+            coursesSelection: prevState.coursesSelection.map(n=>
+                (n.id_programa!==programa+1) ? {...n} : xd
+            )
+            }));
+        console.log("ABER", this.state.coursesSelection);
+    }
 
   render() {
-        const { select } = this;
+        const { select, handleMS} = this;
         const { rows,columns,selection,enabled } = this.state;
         return (
             <div className="App">
@@ -89,7 +103,8 @@ class App extends Component {
                     </button>
                 </div>
                 <div>
-                    <PreferencesPanel notSelectedArray={this.state.courses} selectedArray={this.state.coursesSelected}/>
+                    {console.log("TIOS",this.state.coursesSelection)}
+                    <PreferencesPanel notSelectedArray={this.state.values} selectedArray={this.state.coursesSelection} changeSelection={handleMS}/>
                 </div>
             </div>
     );

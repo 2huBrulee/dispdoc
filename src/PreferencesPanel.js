@@ -1,15 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Panel} from 'react-bootstrap'
-import MultipleDropdowns from './MultipleDropdowns'
+import MultipleMS from './components/MultipleMS'
 
-const PreferencesPanel = ({notSelectedArray=[],selectedArray=[],addMore=f=>f,Hover=[],changeSelection=f=>f}) =>
+const PreferencesPanel = ({notSelectedArray=[],selectedArray=[],changeSelection=f=>f,...props}) =>
     <Panel bsStyle="primary">
         <Panel.Heading>
             <Panel.Title componentClass="h3">Preferencia de Cursos</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-            <MultipleDropdowns notSelectedArray={notSelectedArray} selectedArray={selectedArray} addMore={addMore} Hover={Hover} changeSelection={changeSelection}></MultipleDropdowns>
+            {console.log("ESCOGEG",selectedArray)}
+            <MultipleMS types={notSelectedArray} value={selectedArray} handleSelectChange={changeSelection} {...props} />
         </Panel.Body>
     </Panel>
 
