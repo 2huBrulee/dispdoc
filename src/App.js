@@ -4,7 +4,7 @@ import logo from './teacher.svg';
 import './App.css';
 import data from "./data.json";
 import BoxGrid from './BoxGrid';
-import { ButtonToolbar, Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import InformacionAcademica from './InformationAcademic';
 import InformacionPersonal from './InformationPersonal';
 import PhotoPanel from './PhotoPanel';
@@ -30,14 +30,16 @@ class App extends Component {
         this.select = this.select.bind(this)
         this.sendDisp = this.sendDisp.bind(this)
         this.handleMS = this.handleMS.bind(this)
+        this.getPDF = this.getPDF.bind(this)
     }
 
-/*    componentWillMount(){
-        axios.get('http://stif.com/sel.json').then(res =>{
-            const selection = res.data;
-            this.setState({selection});
+    componentWillMount(){
+        axios.get('http://127.0.0.1:8000/disponibilidad/api/1').then(res =>{
+            this.setState(prevState => ({
+                selection: JSON.parse(res.data)
+            }));
         })
-    }*/
+    }
 
     select(n,isEnabled,isSelectAll){
         if (isEnabled)  this.selectBox(n)
@@ -65,31 +67,36 @@ class App extends Component {
             teacher: "3",
                 selection:this.state.selection,
         };
-        axios.post('http://127.0.0.1:8000/disponibilidad/api',data).then(function (response) {
+
+        console.log(data)
+        axios.post('http://127.0.0.1:8000/disponibilidad/api/1',data).then(function (response) {
             console.log('salvado en la base de datos')
         })
     }
 
-    handleMS = (selectedOption, programa) =>{
-        console.log(selectedOption);
-        programa = 0;
-        let selectedArray = selectedOption.split(',');
-        let cursos =  this.state.values[programa].cursos.filter((curso)=>true);
-        let xd = this.state.values[programa]
-        xd.cursos = cursos
+    getPDF = () => {
+        console.log('ACCION TURBO')
+        axios.get('http://127.0.0.1:8000/docente/pdf/1').then( response=>{
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'file.pdf');
+            document.body.appendChild(link);
+            link.click();
+        })
+    }
 
-         console.log(cursos);
+    handleMS = (selectedOption,programa) =>{
+        let selectedArray = selectedOption.split(',').map(n=>parseInt(n,10));
         this.setState(prevState => ({
-            coursesSelection: prevState.coursesSelection.map(n=>
-                (n.id_programa!==programa+1) ? {...n} : xd
-            )
-            }));
-        console.log("ABER", this.state.coursesSelection);
+            coursesSelection: prevState.coursesSelection.map((n,pos)=>
+                (n.id_programa!==programa) ? {...n} :
+                    Object.assign(n,{cursos:prevState.values[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
+            )}))
     }
 
   render() {
-
-        const { select, handleMS} = this;
+        const { select, handleMS, getPDF} = this;
         const { rows,columns,selection,enabled } = this.state;
         return (
             <div className="App">
@@ -122,8 +129,8 @@ class App extends Component {
                     {console.log("TIOS",this.state.coursesSelection)}
                     <PreferencesPanel notSelectedArray={this.state.values} selectedArray={this.state.coursesSelection} changeSelection={handleMS}/>
                 </div>
+                <Button bsStyle="primary" onClick={getPDF}> Descargar PDF </Button>
             </div>
-
     );
   }
 }

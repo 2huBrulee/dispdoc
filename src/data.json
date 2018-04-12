@@ -34,6 +34,7 @@
       1,1,1,1,1,1,1,1,1,1,1,1,1,1,
       1,1,1,1,1,1,1,1,1,1,1,1,1,1
     ],
+    "selection":[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false],
     "programas":[
       {
         "id_programa": 1,
@@ -41,7 +42,7 @@
         "cursos": [
           {
             "id_curso": 1,
-            "nom_curso": "Curso 1"
+            "nom_curso": "Curso GAY"
           },
           {
             "id_curso": 2,
