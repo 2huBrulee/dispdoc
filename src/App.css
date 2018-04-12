@@ -45,11 +45,6 @@
     transform: scale(1);
   }
 }
-/*.App-tabla{
-    flex-direction: row;
-    margin-top: 400px;
-    margin-bottom: 520px;
-}*/
 
 div.box {
   cursor: pointer;

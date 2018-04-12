@@ -9,7 +9,7 @@ const PhotoPanel = ({photo="https://78.media.tumblr.com/1eef02b917d63d9a83f90e32
         </Panel.Heading>
         <Panel.Body>
             <div>
-                <img src={photo} alt={'NO FOTO'}/>
+                <img align="centered" width="75%" src={photo} alt={'NO FOTO'}/>
             </div>
         </Panel.Body>
     </Panel>
@@ -18,5 +18,5 @@ const PhotoPanel = ({photo="https://78.media.tumblr.com/1eef02b917d63d9a83f90e32
 export default PhotoPanel
 
 PhotoPanel.propTypes = {
-    photo: PropTypes.string,
+    photo: PropTypes.string
 }
