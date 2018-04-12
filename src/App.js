@@ -42,7 +42,7 @@ class App extends Component {
             this.setState(prevState => ({
                 selection: JSON.parse(res.data)
             }));
-        })
+        }).catch(()=>console.log("BACK NO ESTA ACTIVADO /// USANDO DATOS FEIK"))
         axios.get('http://127.0.0.1:8000/docente/api/1').then(res =>{
             this.setState(prevState => ({
                 profesor: res.data
@@ -62,7 +62,12 @@ class App extends Component {
                     selection: JSON.parse(res.data),
                     dhenabled: !prevState.dhenabled
                 }));
+            }).catch(rej => {
+                console.log('EL BACK NO ESTA ACTIVADO')
+                this.setState(prevState => ({
+                    dhenabled: !prevState.dhenabled
             })
+                )})
         }
         else
             this.setState(prevState => ({
