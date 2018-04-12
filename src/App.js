@@ -3,12 +3,11 @@ import axios from 'axios';
 import logo from './teacher.svg';
 import './App.css';
 import data from "./data.json";
-import { Button } from 'react-bootstrap';
+import { Button, Grid, Col } from 'react-bootstrap';
 import InformacionAcademica from './InformationAcademic';
 import InformacionPersonal from './InformationPersonal';
 import PhotoPanel from './PhotoPanel';
 import PreferencesPanel from "./PreferencesPanel";
-import { Grid, Col} from 'react-bootstrap'
 import DisponibilidadHoraria from "./components/DisponibilidadHoraria";
 
 class App extends Component {
