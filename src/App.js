@@ -3,15 +3,15 @@ import axios from 'axios';
 import logo from './teacher.svg';
 import './App.css';
 import data from "./data.json";
-import { Button, Grid, Col } from 'react-bootstrap';
+import { Grid, Col } from 'react-bootstrap';
 import InformacionAcademica from './InformationAcademic';
 import InformacionPersonal from './InformationPersonal';
-import PhotoPanel from './PhotoPanel';
-import PreferencesPanel from "./PreferencesPanel";
-import DisponibilidadHoraria from "./components/DisponibilidadHoraria";
+import PhotoPanel from './components/PhotoPanel';
+import PreferencesPanel from "./components/PreferencesPanel";
+import DisponibilidadPanel from './components/DisponibilidadPanel';
+import PDFPanel from './components/PDFPanel';
 
 class App extends Component {
-
     constructor(...props){
         super(...props)
         this.state = {
@@ -23,8 +23,10 @@ class App extends Component {
             coursesSelection: data[0].seleccion,
             profesor: data[0].profesor
         }
-        for (var i=0;i<this.state.rows.length*this.state.columns.length;i++)
-            this.state.selection.push(false);
+
+        for (let i=0;i<this.state.rows.length*this.state.columns.length;i++)
+            this.state.selection.push(false)
+
         this.selectBox = this.selectBox.bind(this)
         this.selectAll = this.selectAll.bind(this)
         this.select = this.select.bind(this)
@@ -39,6 +41,16 @@ class App extends Component {
                 selection: JSON.parse(res.data)
             }));
         })
+        axios.get('http://127.0.0.1:8000/docente/api/1').then(res =>{
+            this.setState(prevState => ({
+                profesor: res.data
+            }));
+        })
+        axios.get('http://127.0.0.1:8000/curso/api').then(res =>{
+            this.setState(prevState => ({
+                values: res.data
+            }));
+        }).catch(rej=>console.log('feik'))
     }
 
     select(n,isEnabled,isSelectAll){
@@ -54,7 +66,7 @@ class App extends Component {
             }))
     }
 
-    selectBox(n){
+    selectBox = n => {
         this.setState(prevState => ({
             selection: prevState.selection.map((nu,iki) =>
                 (iki!==n) ? nu : !nu
@@ -62,9 +74,10 @@ class App extends Component {
         }))
     }
 
-    sendDisp(){
-            axios.post('http://127.0.0.1:8000/disponibilidad/api/1',{selection:this.state.selection}).then(function (response) {
-            })
+    sendDisp = () => {
+        axios.post('http://127.0.0.1:8000/disponibilidad/api/1',{selection:this.state.selection}).then(function (response) {
+
+        })
     }
 
     getPDF = () => {
@@ -87,15 +100,16 @@ class App extends Component {
             )}))
     }
 
-  render() {
-        const { select, handleMS, getPDF} = this;
-        const { rows,columns,selection,enabled, profesor } = this.state;
+    render() {
+        const { select, handleMS, getPDF,sendDisp} = this;
+        const { rows,columns,selection,enabled,values,coursesSelection, profesor } = this.state;
         return (
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title"><img src={logo} className="App-logo" alt="logo" />
                         <div>Disponibilidad del docente</div></h1>
                 </header>
+                <div/>
                 <Grid>
                     <Col md={9}>
                         <InformacionPersonal profesor={profesor}/>
@@ -105,16 +119,11 @@ class App extends Component {
                         <PhotoPanel/>
                     </Col>
                     <Col md={9}>
-                        <DisponibilidadHoraria rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
-                        <div>
-                            <button onClick={this.sendDisp}>Guardar</button>
-                        </div>
+                        <DisponibilidadPanel rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select} saveChanges={sendDisp}/>
+                        <PreferencesPanel notSelectedArray={values} selectedArray={coursesSelection} changeSelection={handleMS}/>
+                        <PDFPanel getPDF={getPDF} />
                     </Col>
                 </Grid>
-                <div>
-                    <PreferencesPanel notSelectedArray={this.state.values} selectedArray={this.state.coursesSelection} changeSelection={handleMS}/>
-                </div>
-                <Button bsStyle="primary" onClick={getPDF}> Descargar PDF </Button>
             </div>
     );
   }

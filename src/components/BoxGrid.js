@@ -31,6 +31,7 @@ const BoxGrid = ({rows, columns, selection, enabled, onSelect=f=>f,...props})=>
                     )}
                 </tr>
             )}
+            <tr></tr>
             <tr>
                 <td className="Seleccionar">Seleccionar todo</td>
                 {columns.map((n,i)=>
@@ -47,12 +48,12 @@ const BoxGrid = ({rows, columns, selection, enabled, onSelect=f=>f,...props})=>
         </table>
     </div>
 
+export default BoxGrid
+
 BoxGrid.propTypes = {
     columns: PropTypes.array,
-    enabled: PropTypes.bool,
+    enabled: PropTypes.array,
     onSelect: PropTypes.func,
     rows: PropTypes.array,
     selection: PropTypes.array
 }
-
-export default BoxGrid
