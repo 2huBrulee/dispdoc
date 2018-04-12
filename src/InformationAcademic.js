@@ -3,7 +3,7 @@ import {Panel, form} from 'react-bootstrap'
 import {Grid, Col, Row} from 'react-bootstrap'
 import TextandInput from './FieldGroup'
 
-const InformacionAcademica = ({})=>
+const InformacionAcademica = ({profesor})=>
     <div>
         <Panel>
             <Panel.Heading>Informacion Academica</Panel.Heading>

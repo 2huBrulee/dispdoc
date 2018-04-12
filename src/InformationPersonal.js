@@ -4,50 +4,48 @@ import {Grid, Col, Row} from 'react-bootstrap'
 import TextandInput from './FieldGroup'
 import TextandRadio from './TxtandRadioGroup'
 
-const InformacionPersonal = ({})=>
+const InformacionPersonal = ({profesor})=>
     <div>
         <Panel>
             <Panel.Heading>Informacion Personal</Panel.Heading>
 
             <Panel.Body>
-
-
                     <Row className="show-grid">
                         <Col md={6}>
                             <TextandInput
                                 nombreCampo="Nombres"
-                                valorCampo="Nombres de Prueba"/>
+                                valorCampo={profesor.nom_docente}/>
 
                             <TextandInput
                                 nombreCampo="Apellidos"
-                                valorCampo="Apellidos de Prueba"/>
+                                valorCampo={profesor.ape_docente}/>
 
                             <TextandRadio
                                 nombreCampo="Sexo"
-                                valorCampo="True"/>
+                                valorCampo={profesor.genero}/>
 
                             <TextandInput
                                 nombreCampo="Correo"
-                                valorCampo="Correo de Prueba"/>
+                                valorCampo={profesor.email_docente}/>
                         </Col>
 
                         <Col md={6}>
 
                             <TextandInput
                                 nombreCampo="Fecha Nacimiento"
-                                valorCampo="Fecha de Prueba"/>
+                                valorCampo={profesor.fecha_nac}/>
 
                             <TextandInput
                                 nombreCampo="Lugar de Nacimiento"
-                                valorCampo="Lugar de Prueba"/>
+                                valorCampo={profesor.pais}/>
 
                             <TextandInput
                                 nombreCampo="Direccion"
-                                valorCampo="Direccion de Prueba"/>
+                                valorCampo={profesor.direccion}/>
 
                             <TextandInput
                                 nombreCampo="Celular"
-                                valorCampo="Celular de Prueba"/>
+                                valorCampo={profesor.celular_docente}/>
 
                         </Col>
                     </Row>
