@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './Box.scss'
 
 const Box = ({selected=false,enabled=false,onClick=f=>f}) =>
     <div className={((!enabled) ? "box disabled" : ((selected ) ? "box selected" : "box"))}

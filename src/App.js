@@ -3,13 +3,13 @@ import axios from 'axios';
 import logo from './teacher.svg';
 import './App.css';
 import data from "./data.json";
-import BoxGrid from './BoxGrid';
 import { Button } from 'react-bootstrap';
 import InformacionAcademica from './InformationAcademic';
 import InformacionPersonal from './InformationPersonal';
 import PhotoPanel from './PhotoPanel';
 import PreferencesPanel from "./PreferencesPanel";
 import { Grid, Col} from 'react-bootstrap'
+import DisponibilidadHoraria from "./components/DisponibilidadHoraria";
 
 class App extends Component {
 
@@ -63,19 +63,11 @@ class App extends Component {
     }
 
     sendDisp(){
-        const data = {
-            teacher: "3",
-                selection:this.state.selection,
-        };
-
-        console.log(data)
-        axios.post('http://127.0.0.1:8000/disponibilidad/api/1',data).then(function (response) {
-            console.log('salvado en la base de datos')
-        })
+            axios.post('http://127.0.0.1:8000/disponibilidad/api/1',{selection:this.state.selection}).then(function (response) {
+            })
     }
 
     getPDF = () => {
-        console.log('ACCION TURBO')
         axios.get('http://127.0.0.1:8000/docente/pdf/1').then( response=>{
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
@@ -104,29 +96,22 @@ class App extends Component {
                     <h1 className="App-title"><img src={logo} className="App-logo" alt="logo" />
                         <div>Disponibilidad del docente</div></h1>
                 </header>
-
                 <Grid>
                     <Col md={9}>
-                         <InformacionPersonal>
-                        </InformacionPersonal>
-
-                         <InformacionAcademica>
-                         </InformacionAcademica>
-
-                         <div>
-                            <h1 className="App-sub-title">Disponibilidad de horario</h1>
-                            <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
-                        </div>
-                        <div>
-                            <button onClick={this.sendDisp}>Guardar</button>
-                        </div>
+                        <InformacionPersonal/>
+                        <InformacionAcademica/>
                     </Col>
                     <Col md={3}>
                         <PhotoPanel/>
                     </Col>
+                    <Col md={9}>
+                        <DisponibilidadHoraria rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select}/>
+                        <div>
+                            <button onClick={this.sendDisp}>Guardar</button>
+                        </div>
+                    </Col>
                 </Grid>
                 <div>
-                    {console.log("TIOS",this.state.coursesSelection)}
                     <PreferencesPanel notSelectedArray={this.state.values} selectedArray={this.state.coursesSelection} changeSelection={handleMS}/>
                 </div>
                 <Button bsStyle="primary" onClick={getPDF}> Descargar PDF </Button>

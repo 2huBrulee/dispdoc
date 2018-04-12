@@ -7,7 +7,6 @@ const TextandInput = ({nombreCampo, valorCampo}) =>
     <div className="separated">
         <form>
             <FormGroup controlId="formBasicText">
-
                         <Col md={6}>
                             <ControlLabel>{nombreCampo}</ControlLabel>
                         </Col>

@@ -34,7 +34,15 @@
       1,1,1,1,1,1,1,1,1,1,1,1,1,1,
       1,1,1,1,1,1,1,1,1,1,1,1,1,1
     ],
-    "selection":[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false],
+    "selection":[
+      false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+      false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+      false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+      false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+      false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+      false, false, false, false, true,  false, false, false, true,  false, true,  false, false, false,
+      false, false, false, false, false, false, false, false, false, false, true,  false, false, false
+    ],
     "programas":[
       {
         "id_programa": 1,
