@@ -16,12 +16,13 @@ class App extends Component {
     constructor(...props){
         super(...props)
         this.state = {
-            rows : data[0].rows,
-            columns : data[0].columns,
+            rows: data[0].rows,
+            columns: data[0].columns,
             selection: [],
             enabled: data[0].enabled,
             values: data[0].programas,
-            coursesSelection: data[0].seleccion
+            coursesSelection: data[0].seleccion,
+            profesor: data[0].profesor
         }
         for (var i=0;i<this.state.rows.length*this.state.columns.length;i++)
             this.state.selection.push(false);
@@ -89,7 +90,7 @@ class App extends Component {
 
   render() {
         const { select, handleMS, getPDF} = this;
-        const { rows,columns,selection,enabled } = this.state;
+        const { rows,columns,selection,enabled, profesor } = this.state;
         return (
             <div className="App">
                 <header className="App-header">
@@ -98,7 +99,7 @@ class App extends Component {
                 </header>
                 <Grid>
                     <Col md={9}>
-                        <InformacionPersonal/>
+                        <InformacionPersonal profesor={profesor}/>
                         <InformacionAcademica/>
                     </Col>
                     <Col md={3}>
