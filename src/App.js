@@ -21,7 +21,8 @@ class App extends Component {
             enabled: data[0].enabled,
             values: data[0].programas,
             coursesSelection: data[0].seleccion,
-            profesor: data[0].profesor
+            profesor: data[0].profesor,
+            dhenabled: false
         }
 
         for (let i=0;i<this.state.rows.length*this.state.columns.length;i++)
@@ -33,6 +34,7 @@ class App extends Component {
         this.sendDisp = this.sendDisp.bind(this)
         this.handleMS = this.handleMS.bind(this)
         this.getPDF = this.getPDF.bind(this)
+        this.changeDHEditable = this.changeDHEditable.bind(this)
     }
 
     componentWillMount(){
@@ -53,9 +55,25 @@ class App extends Component {
         }).catch(rej=>console.log('feik'))
     }
 
+    changeDHEditable = () => {
+        if (this.state.dhenabled) {
+            axios.get('http://127.0.0.1:8000/disponibilidad/api/1').then(res =>{
+                this.setState(prevState => ({
+                    selection: JSON.parse(res.data),
+                    dhenabled: !prevState.dhenabled
+                }));
+            })
+        }
+        else
+            this.setState(prevState => ({
+                dhenabled: !prevState.dhenabled
+        }))
+    }
+
+
     select(n,isEnabled,isSelectAll){
-        if (isEnabled)  this.selectBox(n)
-        if (isSelectAll) this.selectAll(n)
+        if (isEnabled && this.state.dhenabled)  this.selectBox(n)
+        if (isSelectAll && this.state.dhenabled) this.selectAll(n)
     }
 
     selectAll(n){
@@ -75,6 +93,7 @@ class App extends Component {
     }
 
     sendDisp = () => {
+        this.changeDHEditable()
         axios.post('http://127.0.0.1:8000/disponibilidad/api/1',{selection:this.state.selection}).then(function (response) {
 
         })
@@ -101,8 +120,8 @@ class App extends Component {
     }
 
     render() {
-        const { select, handleMS, getPDF,sendDisp} = this;
-        const { rows,columns,selection,enabled,values,coursesSelection, profesor } = this.state;
+        const { select, handleMS, getPDF,sendDisp,changeDHEditable } = this;
+        const { rows,columns,selection,enabled,values,coursesSelection, profesor, dhenabled } = this.state;
         return (
             <div className="App">
                 <header className="App-header">
@@ -119,7 +138,8 @@ class App extends Component {
                         <PhotoPanel/>
                     </Col>
                     <Col md={9}>
-                        <DisponibilidadPanel rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select} saveChanges={sendDisp}/>
+                        <DisponibilidadPanel rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select} saveChanges={sendDisp}
+                                             editable={dhenabled} changeEdit={changeDHEditable}/>
                         <PreferencesPanel notSelectedArray={values} selectedArray={coursesSelection} changeSelection={handleMS}/>
                         <PDFPanel getPDF={getPDF} />
                     </Col>

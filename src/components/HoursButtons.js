@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'react-bootstrap'
 
-const HoursButtons = ({saveChanges=f=>f, editing=false,...props}) =>
+const HoursButtons = ({saveChanges=f=>f, editing=false, changeEdit=f=>f, ...props}) =>
     <div>
-        <Button bsStyle="primary">{editing?'Cancelar':'Editar'}</Button>
-        <Button bsStyle="primary" onClick={saveChanges}>Guardar</Button>
+        <Button bsStyle="primary" onClick={changeEdit}>{editing?'Cancelar':'Editar'}</Button>
+        <Button bsStyle="primary" disabled={!editing} onClick={saveChanges}>Guardar</Button>
     </div>
 
 export default HoursButtons
