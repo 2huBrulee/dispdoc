@@ -53,6 +53,12 @@ class App extends Component {
                 values: res.data
             }));
         }).catch(rej=>console.log('feik'))
+        axios.get('http://127.0.0.1:8000/curso/docente/1').then(res =>{
+            console.log(res.data)
+            this.setState(prevState => ({
+                coursesSelection: res.data
+            }));
+        }).catch(rej=>console.log('feik'))
     }
 
     changeDHEditable = () => {
@@ -98,10 +104,12 @@ class App extends Component {
     }
 
     sendDisp = () => {
-        this.changeDHEditable()
-        axios.post('http://127.0.0.1:8000/disponibilidad/api/1',{selection:this.state.selection}).then(function (response) {
+        axios.post('http://127.0.0.1:8000/disponibilidad/api/1',{selection:this.state.selection}).then(res =>
+            this.setState(prevState => ({
+                dhenabled: !prevState.dhenabled
+            })
+        ))
 
-        })
     }
 
     getPDF = () => {
