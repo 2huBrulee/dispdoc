@@ -22,7 +22,8 @@ class App extends Component {
             values: data[0].programas,
             coursesSelection: data[0].seleccion,
             profesor: data[0].profesor,
-            dhenabled: false
+            dhenabled: false,
+            msenabled: false
         }
 
         for (let i=0;i<this.state.rows.length*this.state.columns.length;i++)
@@ -35,30 +36,45 @@ class App extends Component {
         this.handleMS = this.handleMS.bind(this)
         this.getPDF = this.getPDF.bind(this)
         this.changeDHEditable = this.changeDHEditable.bind(this)
+        this.expandDong = this.expandDong.bind(this)
     }
 
-    componentWillMount(){
-        axios.get('http://127.0.0.1:8000/disponibilidad/api/1').then(res =>{
-            this.setState(prevState => ({
-                selection: JSON.parse(res.data)
-            }));
-        }).catch(()=>console.log("BACK NO ESTA ACTIVADO /// USANDO DATOS FEIK"))
-        axios.get('http://127.0.0.1:8000/docente/api/1').then(res =>{
-            this.setState(prevState => ({
-                profesor: res.data
-            }));
+    expandDong = (prevState,newData) => {
+        console.log(newData)
+        let coursesS = newData.map((n,i)=> {
+            var newP =Object.assign({},n);
+            newP.cursos=[]
+            return newP
         })
-        axios.get('http://127.0.0.1:8000/curso/api').then(res =>{
+        return coursesS
+    }
+
+    componentDidMount(){
+        axios.get('http://127.0.0.1:8000/curso/api').then(resi =>{
+            //console.log(this.state.coursesSelection)
+            let deto = JSON.parse(JSON.stringify(resi.data))
+            console.log(resi.data)
+            this.setState(prevState => ({values: resi.data, coursesSelection:this.expandDong(prevState,resi.data)}));
+            console.log(this.state.coursesSelection)
+        }).then(
+        axios.get('http://127.0.0.1:8000/disponibilidad/api/1').then(res2 =>{
             this.setState(prevState => ({
-                values: res.data
+                selection: JSON.parse(res2.data)
             }));
-        }).catch(rej=>console.log('feik'))
-        axios.get('http://127.0.0.1:8000/curso/docente/1').then(res =>{
-            console.log(res.data)
+        })).then(
+        axios.get('http://127.0.0.1:8000/docente/api/1').then(res3 =>{
             this.setState(prevState => ({
-                coursesSelection: res.data
+                profesor: res3.data
             }));
-        }).catch(rej=>console.log('feik'))
+        })).then(
+        axios.get('http://127.0.0.1:8000/curso/docente/1').then(res4 =>{
+            console.log(res4.data)
+            let selectedArray = res4.data.map(n=>n.id_curso)
+            this.setState(prevState => ({
+                coursesSelection: prevState.coursesSelection.map((n,pos)=>
+                        Object.assign(n,{cursos:prevState.values[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
+                )}))
+        })).catch(rej=>console.log('feik 3'));
     }
 
     changeDHEditable = () => {
@@ -130,11 +146,12 @@ class App extends Component {
                 (n.id_programa!==programa) ? {...n} :
                     Object.assign(n,{cursos:prevState.values[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
             )}))
+        console.log(this.state.coursesSelection)
     }
 
     render() {
         const { select, handleMS, getPDF,sendDisp,changeDHEditable } = this;
-        const { rows,columns,selection,enabled,values,coursesSelection, profesor, dhenabled } = this.state;
+        const { rows,columns,selection,enabled,values,coursesSelection, profesor, dhenabled, msenabled } = this.state;
         return (
             <div className="App">
                 <header className="App-header">
@@ -151,9 +168,10 @@ class App extends Component {
                         <PhotoPanel/>
                     </Col>
                     <Col md={9}>
-                        <DisponibilidadPanel rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={select} saveChanges={sendDisp}
+                        <DisponibilidadPanel rows={rows} columns={columns} selection={selection}
+                                             enabled={enabled} onSelect={select} saveChanges={sendDisp}
                                              editable={dhenabled} changeEdit={changeDHEditable}/>
-                        <PreferencesPanel notSelectedArray={values} selectedArray={coursesSelection} changeSelection={handleMS}/>
+                        <PreferencesPanel notSelectedArray={values} selectedArray={coursesSelection} msedit={msenabled} changeSelection={handleMS}/>
                         <PDFPanel getPDF={getPDF} />
                     </Col>
                 </Grid>
