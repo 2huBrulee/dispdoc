@@ -1,17 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Panel} from 'react-bootstrap'
-import BoxGrid from "./BoxGrid";
+import BoxGrid from './BoxGrid'
+import HoursButtons from './HoursButtons'
 
-const DisponibilidadHoraria = ({rows=[],columns=[],selection=[],enabled=[],onSelect=f=>f,...props}) =>
-    <Panel bsStyle="primary">
-        <Panel.Heading>
-            <Panel.Title componentClass="h3">Disponibilidad Horaria</Panel.Title>
-        </Panel.Heading>
-        <Panel.Body>
-            <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={onSelect}/>
-        </Panel.Body>
-    </Panel>
+const DisponibilidadHoraria = ({rows=[],columns=[],selection=[],enabled=[],onSelect= f=>f,saveChanges=f=>f,editable=false,changeEdit=f=>f,...props}) =>
+    <div>
+        <BoxGrid rows={rows} columns={columns} selection={selection} enabled={enabled} onSelect={onSelect} />
+        <HoursButtons changeEdit={changeEdit} editing={editable} saveChanges={saveChanges}/>
+    </div>
 
 export default DisponibilidadHoraria
 
@@ -20,5 +16,6 @@ DisponibilidadHoraria.propTypes = {
   enabled: PropTypes.array,
   onSelect: PropTypes.func,
   rows: PropTypes.array,
+  saveChanges: PropTypes.func,
   selection: PropTypes.array
 }
