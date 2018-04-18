@@ -13,10 +13,10 @@ const TextandRadio = ({nombreCampo, valorCampo}) =>
                 </Col>
 
                 <Col md={6}>
-                    <Radio name="radioGroup" inline>
+                    <Radio name="radioGroup" >
                         Masculino
                     </Radio>{' '}
-                    <Radio name="radioGroup" inline>
+                    <Radio name="radioGroup" >
                         Femenino
                     </Radio>{' '}
                 </Col>

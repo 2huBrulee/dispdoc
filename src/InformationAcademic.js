@@ -10,22 +10,21 @@ const InformacionAcademica = ({profesor})=>
 
             <Panel.Body>
 
-
                     <Row className="show-grid">
                     <Col md={6}>
                         <TextandInput
                             nombreCampo="Codigo"
-                            valorCampo="Codigo de Prueba"/>
+                            valorCampo={profesor.codigo_docente}/>
 
                         <label>GRADOS</label>
 
                         <TextandInput
                             nombreCampo="Titulo Profesional"
-                            valorCampo="Titulo de Prueba"/>
+                            valorCampo={profesor.Titulo}/>
 
                         <TextandInput
                             nombreCampo="Licenciatura"
-                            valorCampo="Licenciatura de Prueba"/>
+                            valorCampo={profesor.Licenciatura}/>
                     </Col>
 
                     <Col md={6}>
@@ -33,15 +32,15 @@ const InformacionAcademica = ({profesor})=>
 
                         <TextandInput
                             nombreCampo="Maestria"
-                            valorCampo="Maestria de Prueba"/>
+                            valorCampo={profesor.Maestria}/>
 
                         <TextandInput
                             nombreCampo="Especialidad"
-                            valorCampo="Especialidad de Prueba"/>
+                            valorCampo={profesor.Especialidad}/>
 
                         <TextandInput
                             nombreCampo="Doctorado"
-                            valorCampo="Doctorado de Prueba"/>
+                            valorCampo={profesor.Doctorado}/>
                     </Col>
                     </Row>
 

@@ -100,7 +100,7 @@ class App extends Component {
                 <Grid>
                     <Col md={9}>
                         <InformacionPersonal profesor={profesor}/>
-                        <InformacionAcademica/>
+                        <InformacionAcademica profesor={profesor}/>
                     </Col>
                     <Col md={3}>
                         <PhotoPanel/>
