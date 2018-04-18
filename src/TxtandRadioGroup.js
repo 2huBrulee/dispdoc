@@ -14,10 +14,10 @@ const TextandRadio = ({nombreCampo, valorCampo}) =>
 
                 <Col md={6}>
 
-                    <Radio name="radioGroup" defaultChecked={valorCampo==='M'} inline>
+                    <Radio name="radioGroup" defaultChecked={valorCampo==='M'} inline disabled>
                         Masculino
                     </Radio>{' '}
-                    <Radio name="radioGroup" defaultChecked={valorCampo==='F'} inline>
+                    <Radio name="radioGroup" defaultChecked={valorCampo==='F'} inline disabled>
                         Femenino
                     </Radio>{' '}
                 </Col>

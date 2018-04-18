@@ -14,11 +14,11 @@ const InformacionPersonal = ({profesor})=>
                         <Col md={6}>
                             <TextandInput
                                 nombreCampo="Nombres"
-                                valorCampo={profesor.nom_docente}/>
+                                valorCampo={profesor.nombres}/>
 
                             <TextandInput
                                 nombreCampo="Apellidos"
-                                valorCampo={profesor.ape_docente}/>
+                                valorCampo={profesor.apell_pat + " " + profesor.apell_mat}/>
 
                             <TextandRadio
                                 nombreCampo="Sexo"
@@ -26,7 +26,7 @@ const InformacionPersonal = ({profesor})=>
 
                             <TextandInput
                                 nombreCampo="Correo"
-                                valorCampo={profesor.email_docente}/>
+                                valorCampo={profesor.email}/>
                         </Col>
 
                         <Col md={6}>
@@ -45,7 +45,7 @@ const InformacionPersonal = ({profesor})=>
 
                             <TextandInput
                                 nombreCampo="Celular"
-                                valorCampo={profesor.celular_docente}/>
+                                valorCampo={profesor.celular}/>
 
                         </Col>
                     </Row>

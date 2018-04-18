@@ -14,7 +14,7 @@ const InformacionAcademica = ({profesor})=>
                     <Col md={6}>
                         <TextandInput
                             nombreCampo="Codigo"
-                            valorCampo={profesor.codigo_docente}/>
+                            valorCampo={profesor.codigo}/>
 
                         <label>GRADOS</label>
 
