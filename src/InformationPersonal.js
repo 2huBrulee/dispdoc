@@ -6,7 +6,7 @@ import TextandRadio from './TxtandRadioGroup'
 
 const InformacionPersonal = ({profesor})=>
     <div>
-        <Panel>
+        <Panel bsStyle="primary">
             <Panel.Heading>Informacion Personal</Panel.Heading>
 
             <Panel.Body>

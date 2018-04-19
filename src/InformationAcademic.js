@@ -5,7 +5,7 @@ import TextandInput from './FieldGroup'
 
 const InformacionAcademica = ({profesor})=>
     <div>
-        <Panel>
+        <Panel bsStyle="primary">
             <Panel.Heading>Informacion Academica</Panel.Heading>
 
             <Panel.Body>
