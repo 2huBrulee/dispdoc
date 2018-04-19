@@ -2,7 +2,6 @@ import React from 'react'
 import {Panel, form} from 'react-bootstrap'
 import {Grid, Col, Row} from 'react-bootstrap'
 import TextandInput from './FieldGroup'
-import TextandRadio from './TxtandRadioGroup'
 
 const InformacionPersonal = ({profesor})=>
     <div>
@@ -19,10 +18,9 @@ const InformacionPersonal = ({profesor})=>
                             <TextandInput
                                 nombreCampo="Apellidos"
                                 valorCampo={profesor.apell_pat + " " + profesor.apell_mat}/>
-
-                            <TextandRadio
-                                nombreCampo="Sexo"
-                                valorCampo={profesor.genero}/>
+                            <TextandInput
+                                nombreCampo="Genero"
+                                valorCampo={(profesor.genero==='M')?'Masculino':'Femenino'}/>
 
                             <TextandInput
                                 nombreCampo="Correo"

@@ -37,6 +37,8 @@ class App extends Component {
         this.getPDF = this.getPDF.bind(this)
         this.changeDHEditable = this.changeDHEditable.bind(this)
         this.expandDong = this.expandDong.bind(this)
+        this.sendMS = this.sendMS.bind(this)
+        this.changeMSEditable = this.changeMSEditable.bind(this)
     }
 
     expandDong = (prevState,newData) => {
@@ -49,13 +51,16 @@ class App extends Component {
         return coursesS
     }
 
+
+
     componentDidMount(){
+        axios.get('http://127.0.0.1:8000/docente/api/1').then(res=>{
+            this.setState(prevState => ({profesor:res.data}))
+        }).then(
         axios.get('http://127.0.0.1:8000/curso/api').then(resi =>{
-            //console.log(this.state.coursesSelection)
-            let deto = JSON.parse(JSON.stringify(resi.data))
             console.log(resi.data)
+            let deto = JSON.parse(JSON.stringify(resi.data))
             this.setState(prevState => ({values: resi.data, coursesSelection:this.expandDong(prevState,resi.data)}));
-            console.log(this.state.coursesSelection)
         }).then(
         axios.get('http://127.0.0.1:8000/disponibilidad/api/1').then(res2 =>{
             this.setState(prevState => ({
@@ -68,13 +73,12 @@ class App extends Component {
             }));
         })).then(
         axios.get('http://127.0.0.1:8000/curso/docente/1').then(res4 =>{
-            console.log(res4.data)
             let selectedArray = res4.data.map(n=>n.id_curso)
             this.setState(prevState => ({
                 coursesSelection: prevState.coursesSelection.map((n,pos)=>
                         Object.assign(n,{cursos:prevState.values[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
                 )}))
-        })).catch(rej=>console.log('feik 3'));
+        }))).catch(rej=>console.log('feik 3'));
     }
 
     changeDHEditable = () => {
@@ -94,6 +98,23 @@ class App extends Component {
         else
             this.setState(prevState => ({
                 dhenabled: !prevState.dhenabled
+        }))
+    }
+
+    changeMSEditable = () => {
+        if (this.state.dhenabled) {
+            axios.get('http://127.0.0.1:8000/docente/api/1').then(res=>{
+                this.setState(prevState => ({profesor:res.data}))
+            }).catch(rej => {
+                console.log('EL BACK NO ESTA ACTIVADO')
+                this.setState(prevState => ({
+                    msenabled: !prevState.msenabled
+            })
+                )})
+        }
+        else
+            this.setState(prevState => ({
+                msenabled: !prevState.msenabled
         }))
     }
 
@@ -128,6 +149,15 @@ class App extends Component {
 
     }
 
+    sendMS = () => {
+        axios.post('http://127.0.0.1:8000/curso/docente/1',{coursesSelection:this.state.coursesSelection}).then(res =>
+            this.setState(prevState => ({
+                msenabled: !prevState.msenabled
+            })
+        ))
+
+    }
+
     getPDF = () => {
         axios.get('http://127.0.0.1:8000/docente/pdf/1').then( response=>{
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -150,7 +180,7 @@ class App extends Component {
     }
 
     render() {
-        const { select, handleMS, getPDF,sendDisp,changeDHEditable } = this;
+        const { select, handleMS, getPDF,sendDisp,changeDHEditable,changeMSEditable,sendMS } = this;
         const { rows,columns,selection,enabled,values,coursesSelection, profesor, dhenabled, msenabled } = this.state;
         return (
             <div className="App">
@@ -171,7 +201,8 @@ class App extends Component {
                         <DisponibilidadPanel rows={rows} columns={columns} selection={selection}
                                              enabled={enabled} onSelect={select} saveChanges={sendDisp}
                                              editable={dhenabled} changeEdit={changeDHEditable}/>
-                        <PreferencesPanel notSelectedArray={values} selectedArray={coursesSelection} msedit={msenabled} changeSelection={handleMS}/>
+                        <PreferencesPanel notSelectedArray={values} selectedArray={coursesSelection} msedit={msenabled}
+                                          changeSelection={handleMS} sendMS={sendMS} changeEdit={changeMSEditable} />
                         <PDFPanel getPDF={getPDF} />
                     </Col>
                 </Grid>
