@@ -51,34 +51,33 @@ class App extends Component {
         return coursesS
     }
 
-
-
     componentDidMount(){
         axios.get('http://127.0.0.1:8000/docente/api/1').then(res=>{
             this.setState(prevState => ({profesor:res.data}))
         }).then(
-        axios.get('http://127.0.0.1:8000/curso/api').then(resi =>{
-            console.log(resi.data)
-            let deto = JSON.parse(JSON.stringify(resi.data))
-            this.setState(prevState => ({values: resi.data, coursesSelection:this.expandDong(prevState,resi.data)}));
-        }).then(
-        axios.get('http://127.0.0.1:8000/disponibilidad/api/1').then(res2 =>{
-            this.setState(prevState => ({
-                selection: JSON.parse(res2.data)
-            }));
-        })).then(
-        axios.get('http://127.0.0.1:8000/docente/api/1').then(res3 =>{
-            this.setState(prevState => ({
-                profesor: res3.data
-            }));
-        })).then(
-        axios.get('http://127.0.0.1:8000/curso/docente/1').then(res4 =>{
-            let selectedArray = res4.data.map(n=>n.id_curso)
-            this.setState(prevState => ({
-                coursesSelection: prevState.coursesSelection.map((n,pos)=>
-                        Object.assign(n,{cursos:prevState.values[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
-                )}))
-        }))).catch(rej=>console.log('feik 3'));
+            axios.get('http://127.0.0.1:8000/curso/api').then(resi =>{
+                console.log(resi.data)
+                axios.get('http://127.0.0.1:8000/curso/docente/1').then(res4 =>{
+                    let selectedArray = res4.data.map(n=>n.id_curso)
+                    this.setState(prevState => {
+                        console.log(prevState.coursesSelection)
+                        return {values: resi.data,
+                            coursesSelection: this.expandDong(prevState,resi.data).map((n,pos)=>
+                                Object.assign(n,{cursos:resi.data[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
+                            )}})
+                })
+                //this.setState(prevState => ({values: resi.data, coursesSelection:this.expandDong(prevState,resi.data)}));
+            }).then(
+                axios.get('http://127.0.0.1:8000/disponibilidad/api/1').then(res2 =>{
+                    this.setState(prevState => ({
+                        selection: JSON.parse(res2.data)
+                    }));
+                }).then(
+                    axios.get('http://127.0.0.1:8000/docente/api/1').then(res3 =>{
+                        this.setState(prevState => ({
+                            profesor: res3.data
+                        }))}))
+            ));
     }
 
     changeDHEditable = () => {
@@ -102,15 +101,16 @@ class App extends Component {
     }
 
     changeMSEditable = () => {
-        if (this.state.dhenabled) {
-            axios.get('http://127.0.0.1:8000/docente/api/1').then(res=>{
-                this.setState(prevState => ({profesor:res.data}))
-            }).catch(rej => {
-                console.log('EL BACK NO ESTA ACTIVADO')
-                this.setState(prevState => ({
-                    msenabled: !prevState.msenabled
+        if (this.state.msenabled) {
+            axios.get('http://127.0.0.1:8000/curso/docente/1').then(res4 =>{
+                let selectedArray = res4.data.map(n=>n.id_curso)
+                this.setState(prevState => {
+                    console.log(prevState.coursesSelection)
+                    return {msenabled:!prevState.msenabled,
+                        coursesSelection: this.expandDong(prevState,prevState.values).map((n,pos)=>
+                            Object.assign(n,{cursos:this.state.values[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
+                        )}})
             })
-                )})
         }
         else
             this.setState(prevState => ({
@@ -163,7 +163,7 @@ class App extends Component {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'file.pdf');
+            link.setAttribute('download', `${this.state.profesor.apell_pat}.pdf`);
             document.body.appendChild(link);
             link.click();
         })
