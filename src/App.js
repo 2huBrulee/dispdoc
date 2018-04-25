@@ -7,7 +7,7 @@ import { Grid, Col } from 'react-bootstrap';
 import InformacionAcademica from './InformationAcademic';
 import InformacionPersonal from './InformationPersonal';
 import PhotoPanel from './components/PhotoPanel';
-import PreferencesPanel from "./components/PreferencesPanel";
+import PreferencesPanel from "g./components/PreferencesPanel";
 import DisponibilidadPanel from './components/DisponibilidadPanel';
 import PDFPanel from './components/PDFPanel';
 
@@ -52,12 +52,12 @@ class App extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://127.0.0.1:8000/docente/api/1').then(res=>{
+        axios.get('https://apidisponibilidad.herokuapp.com/docente/api/1').then(res=>{
             this.setState(prevState => ({profesor:res.data}))
         }).then(
-            axios.get('http://127.0.0.1:8000/curso/api').then(resi =>{
+            axios.get('https://apidisponibilidad.herokuapp.com/curso/api').then(resi =>{
                 console.log(resi.data)
-                axios.get('http://127.0.0.1:8000/curso/docente/1').then(res4 =>{
+                axios.get('https://apidisponibilidad.herokuapp.com/curso/docente/1').then(res4 =>{
                     let selectedArray = res4.data.map(n=>n.id_curso)
                     this.setState(prevState => {
                         console.log(prevState.coursesSelection)
@@ -68,12 +68,12 @@ class App extends Component {
                 })
                 //this.setState(prevState => ({values: resi.data, coursesSelection:this.expandDong(prevState,resi.data)}));
             }).then(
-                axios.get('http://127.0.0.1:8000/disponibilidad/api/1').then(res2 =>{
+                axios.get('https://apidisponibilidad.herokuapp.com/disponibilidad/api/1').then(res2 =>{
                     this.setState(prevState => ({
                         selection: JSON.parse(res2.data)
                     }));
                 }).then(
-                    axios.get('http://127.0.0.1:8000/docente/api/1').then(res3 =>{
+                    axios.get('https://apidisponibilidad.herokuapp.com/docente/api/1').then(res3 =>{
                         this.setState(prevState => ({
                             profesor: res3.data
                         }))}))
@@ -82,7 +82,7 @@ class App extends Component {
 
     changeDHEditable = () => {
         if (this.state.dhenabled) {
-            axios.get('http://127.0.0.1:8000/disponibilidad/api/1').then(res =>{
+            axios.get('https://apidisponibilidad.herokuapp.com/disponibilidad/api/1').then(res =>{
                 this.setState(prevState => ({
                     selection: JSON.parse(res.data),
                     dhenabled: !prevState.dhenabled
@@ -102,7 +102,7 @@ class App extends Component {
 
     changeMSEditable = () => {
         if (this.state.msenabled) {
-            axios.get('http://127.0.0.1:8000/curso/docente/1').then(res4 =>{
+            axios.get('https://apidisponibilidad.herokuapp.com/curso/docente/1').then(res4 =>{
                 let selectedArray = res4.data.map(n=>n.id_curso)
                 this.setState(prevState => {
                     console.log(prevState.coursesSelection)
@@ -141,7 +141,7 @@ class App extends Component {
     }
 
     sendDisp = () => {
-        axios.post('http://127.0.0.1:8000/disponibilidad/api/1',{selection:this.state.selection}).then(res =>
+        axios.post('https://apidisponibilidad.herokuapp.com/disponibilidad/api/1',{selection:this.state.selection}).then(res =>
             this.setState(prevState => ({
                 dhenabled: !prevState.dhenabled
             })
@@ -150,7 +150,7 @@ class App extends Component {
     }
 
     sendMS = () => {
-        axios.post('http://127.0.0.1:8000/curso/docente/1',{coursesSelection:this.state.coursesSelection}).then(res =>
+        axios.post('https://apidisponibilidad.herokuapp.com/curso/docente/1',{coursesSelection:this.state.coursesSelection}).then(res =>
             this.setState(prevState => ({
                 msenabled: !prevState.msenabled
             })
@@ -159,7 +159,7 @@ class App extends Component {
     }
 
     getPDF = () => {
-        axios.get('http://127.0.0.1:8000/docente/pdf/1').then( response=>{
+        axios.get('https://apidisponibilidad.herokuapp.com/docente/pdf/1').then( response=>{
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
