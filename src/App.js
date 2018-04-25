@@ -7,7 +7,7 @@ import { Grid, Col } from 'react-bootstrap';
 import InformacionAcademica from './InformationAcademic';
 import InformacionPersonal from './InformationPersonal';
 import PhotoPanel from './components/PhotoPanel';
-import PreferencesPanel from "g./components/PreferencesPanel";
+import PreferencesPanel from "./components/PreferencesPanel";
 import DisponibilidadPanel from './components/DisponibilidadPanel';
 import PDFPanel from './components/PDFPanel';
 
