@@ -120,8 +120,9 @@ class App extends Component {
 
 
     select(n,isEnabled,isSelectAll){
-        if (isEnabled && this.state.dhenabled)  this.selectBox(n)
         if (isSelectAll && this.state.dhenabled) this.selectAll(n)
+        else if (isEnabled && this.state.dhenabled)  this.selectBox(n)
+
     }
 
     selectAll(n){
