@@ -10,6 +10,7 @@ import PhotoPanel from './components/PhotoPanel';
 import PreferencesPanel from "./components/PreferencesPanel";
 import DisponibilidadPanel from './components/DisponibilidadPanel';
 import PDFPanel from './components/PDFPanel';
+import {Tab, Tabs} from 'react-bootstrap';
 
 class App extends Component {
     constructor(...props){
@@ -189,11 +190,16 @@ class App extends Component {
                     <h1 className="App-title"><img src={logo} className="App-logo" alt="logo" />
                         <div>Disponibilidad del docente</div></h1>
                 </header>
-                <div/>
                 <Grid>
                     <Col md={9}>
-                        <InformacionPersonal profesor={profesor}/>
-                        <InformacionAcademica profesor={profesor}/>
+                        <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+                            <Tab eventKey={1} title="Informacion Personal">
+                                <InformacionPersonal profesor={profesor}/>
+                            </Tab>
+                            <Tab eventKey={2} title="Informacion Academica">
+                                <InformacionAcademica profesor={profesor}/>
+                            </Tab>
+                        </Tabs>
                     </Col>
                     <Col md={3}>
                         <PhotoPanel/>
@@ -208,6 +214,7 @@ class App extends Component {
                     </Col>
                 </Grid>
             </div>
+
     );
   }
 }
