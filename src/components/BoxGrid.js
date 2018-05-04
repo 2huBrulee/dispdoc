@@ -44,6 +44,18 @@ const BoxGrid = ({rows, columns, selection, enabled, onSelect=f=>f,...props})=>
                     </td>
                 )}
             </tr>
+            <tr>
+                <td className="SUMA">Horas Totales</td>
+                {columns.map((n,i)=>
+                {var x = 0;
+                    for(var j=0+14*i;j<14*(i+1);j++)
+                        if(selection[j])
+                            x++;
+                    return <td key={(i+1)*1000}>
+                    {x}
+                    </td>}
+                )}
+            </tr>
             </tbody>
         </table>
     </div>
