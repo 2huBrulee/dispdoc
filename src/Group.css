@@ -1,4 +1,8 @@
 .separated {
 
-    padding-bottom: 1.8em;
+    padding-bottom: 2em;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #FFFFFF;
 }

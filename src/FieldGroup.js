@@ -7,14 +7,16 @@ const TextandInput = ({nombreCampo, valorCampo}) =>
     <div className="separated">
         <form>
             <FormGroup controlId="formBasicText">
-                        <Col md={6}>
+                        <Col md={4}>
                             <ControlLabel>{nombreCampo}</ControlLabel>
                         </Col>
 
-                        <Col md={6}>
-                            <FormControl
+                        <Col md={8}>
+                            <FormControl className="color-fondo"
                                 type="text"
-                                value={valorCampo}
+                                //value={valorCampo}
+                                value = {(valorCampo != null)? valorCampo : "No disponible"}
+                                disabled="true"
                             />
                         </Col>
 
