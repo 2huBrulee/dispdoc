@@ -21,10 +21,12 @@ class App extends Component {
             selection: [],
             enabled: data[0].enabled,
             values: data[0].programas,
+            courseHistory: [],
             coursesSelection: data[0].seleccion,
             profesor: data[0].profesor,
             dhenabled: false,
-            msenabled: false
+            msenabled: false,
+            ciclo_actual: 1,
         }
 
         for (let i=0;i<this.state.rows.length*this.state.columns.length;i++)
@@ -77,7 +79,13 @@ class App extends Component {
                     axios.get('https://apidisponibilidad.herokuapp.com/docente/api/1').then(res3 =>{
                         this.setState(prevState => ({
                             profesor: res3.data
-                        }))}))
+                        }))})).then(
+                            axios.get('https://apidisponibilidad.herokuapp.com/docente/api/1').then(resina =>{
+                                this.setState(prevState => ({
+                                   courseHistory:resina.data
+                                }))
+                                })
+                )
             ));
     }
 
@@ -126,6 +134,18 @@ class App extends Component {
 
     }
 
+    siguienteCiclo = () => {
+        this.setState(prevState => ({
+            ciclo_actual:prevState.ciclo_actual+1
+        }))
+    }
+
+    anteriorCiclo = () => {
+        this.setState(prevState => ({
+            ciclo_actual:prevState.ciclo_actual-1
+        }))
+    }
+
     selectAll(n){
         this.setState(prevState => ({
                 selection: prevState.selection.map((nu,iki) =>
@@ -172,11 +192,13 @@ class App extends Component {
     }
 
     handleMS = (selectedOption,programa) =>{
+         console.log(selectedOption,programa)
         let selectedArray = selectedOption.split(',').map(n=>parseInt(n,10));
         this.setState(prevState => ({
-            coursesSelection: prevState.coursesSelection.map((n,pos)=>
-                (n.id_programa!==programa) ? {...n} :
-                    Object.assign(n,{cursos:prevState.values[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
+            coursesSelection: prevState.coursesSelection.map((n,pos)=>{
+                console.log(n.id_programa)
+                return (n.id_programa!==programa) ? {...n} :
+                    Object.assign(n,{cursos:prevState.values[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})}
             )}))
         console.log(this.state.coursesSelection)
     }
@@ -205,9 +227,15 @@ class App extends Component {
                         <PhotoPanel/>
                     </Col>
                     <Col md={9}>
+                        <Button onClick={()=>this.siguienteCiclo()}>
+                            Ciclo siguiente
+                        </Button>
                         <DisponibilidadPanel rows={rows} columns={columns} selection={selection}
                                              enabled={enabled} onSelect={select} saveChanges={sendDisp}
                                              editable={dhenabled} changeEdit={changeDHEditable}/>
+                        <Button onClick={()=>this.anteriorCiclo()}>
+                            Ciclo anterior
+                        </Button>
                         <PreferencesPanel notSelectedArray={values} selectedArray={coursesSelection} msedit={msenabled}
                                           changeSelection={handleMS} sendMS={sendMS} changeEdit={changeMSEditable} />
                         <PDFPanel getPDF={getPDF} />

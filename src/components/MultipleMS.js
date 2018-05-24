@@ -21,7 +21,7 @@ export const MultipleMS = ({types=["gg"],value=[],handleSelectChange=f=>f,msedit
                 removeSelected={true}
                 rtl={false}
                 simpleValue
-                value={value[i].cursos}
+                value={value[i].cursos.sort((a,b)=>a.numciclo-b.numciclo)}
                 valueKey='id_curso'
                 labelKey='nom_curso'
                 key={n.id_programa}

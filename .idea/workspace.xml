@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e65b6b68-ac95-46e0-9441-60c0b169ca14" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MultipleMS.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultipleMS.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -26,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="18">
-              <caret line="144" column="22" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
+              <caret line="178" column="41" selection-start-line="178" selection-start-column="41" selection-end-line="178" selection-end-column="41" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -104,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MultipleMS.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MultipleMS.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MultipleMS.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+            <state relative-caret-position="378">
+              <caret line="23" column="73" selection-start-line="23" selection-start-column="73" selection-end-line="23" selection-end-column="73" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -166,9 +167,9 @@
         <option value="$PROJECT_DIR$/src/TxtandRadioGroup.js" />
         <option value="$PROJECT_DIR$/src/InformationPersonal.js" />
         <option value="$PROJECT_DIR$/src/components/PreferencesPanel.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/BoxGrid.js" />
         <option value="$PROJECT_DIR$/src/components/MultipleMS.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
       </list>
     </option>
   </component>
@@ -202,6 +203,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -224,7 +226,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -269,7 +270,9 @@
       <workItem from="1524170209108" duration="7273000" />
       <workItem from="1524789025872" duration="1078000" />
       <workItem from="1525395849831" duration="1493000" />
-      <workItem from="1525891203214" duration="3950000" />
+      <workItem from="1525891203214" duration="5750000" />
+      <workItem from="1526775767941" duration="23000" />
+      <workItem from="1527118761377" duration="504000" />
     </task>
     <task id="LOCAL-00001" summary="Second Commit">
       <created>1522923928659</created>
@@ -285,22 +288,28 @@
       <option name="project" value="LOCAL" />
       <updated>1524234899535</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fe changes">
+      <created>1525902549786</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1525902549787</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47039000" />
+    <option name="totallyTimeSpent" value="49366000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1028" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49342105" visible="true" weight="0.24986821" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.32967034" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32967034" />
       <window_info id="npm" order="2" sideWeight="0.5065789" side_tool="true" weight="0.24986821" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32967034" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32921347" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.31756756" />
@@ -360,7 +369,8 @@
     <MESSAGE value="MS" />
     <MESSAGE value="cambiazo" />
     <MESSAGE value="suma de horas" />
-    <option name="LAST_COMMIT_MESSAGE" value="suma de horas" />
+    <MESSAGE value="fe changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="fe changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -628,16 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="144" column="22" selection-start-line="144" selection-start-column="22" selection-end-line="144" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Box.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
@@ -668,10 +668,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/MultipleMS.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+        <state relative-caret-position="378">
+          <caret line="23" column="73" selection-start-line="23" selection-start-column="73" selection-end-line="23" selection-end-column="73" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="178" column="41" selection-start-line="178" selection-start-column="41" selection-end-line="178" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
