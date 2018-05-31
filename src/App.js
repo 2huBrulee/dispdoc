@@ -3,7 +3,7 @@ import axios from 'axios';
 import logo from './teacher.svg';
 import './App.css';
 import data from "./data.json";
-import { Grid, Col } from 'react-bootstrap';
+import {ControlLabel,FormControl,FormGroup, Grid, Col } from 'react-bootstrap';
 import InformacionAcademica from './InformationAcademic';
 import InformacionPersonal from './InformationPersonal';
 import PhotoPanel from './components/PhotoPanel';
@@ -227,15 +227,16 @@ class App extends Component {
                         <PhotoPanel/>
                     </Col>
                     <Col md={9}>
-                        <Button onClick={()=>this.siguienteCiclo()}>
-                            Ciclo siguiente
-                        </Button>
+                        <FormGroup controlId="formControlsSelect">
+                            <ControlLabel>Ciclos</ControlLabel>
+                            <FormControl componentClass="select" placeholder="seleccionar ciclo">
+                                <option value="select">select</option>
+                            </FormControl>
+                        </FormGroup>
                         <DisponibilidadPanel rows={rows} columns={columns} selection={selection}
                                              enabled={enabled} onSelect={select} saveChanges={sendDisp}
                                              editable={dhenabled} changeEdit={changeDHEditable}/>
-                        <Button onClick={()=>this.anteriorCiclo()}>
-                            Ciclo anterior
-                        </Button>
+
                         <PreferencesPanel notSelectedArray={values} selectedArray={coursesSelection} msedit={msenabled}
                                           changeSelection={handleMS} sendMS={sendMS} changeEdit={changeMSEditable} />
                         <PDFPanel getPDF={getPDF} />

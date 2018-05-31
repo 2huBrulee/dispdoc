@@ -10,7 +10,8 @@ const PreferencesPanel = ({notSelectedArray=[],selectedArray=[],changeSelection=
             <Panel.Title componentClass="h3">Preferencia de Cursos</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-            <MultipleMS types={notSelectedArray} value={selectedArray} msedit={msedit} handleSelectChange={changeSelection} {...props} />
+            {console.log(selectedArray)}
+            <MultipleMS types={notSelectedArray} value={selectedArray.sort((a,b) => (-1)*(b.id_tip_grado-a.id_tip_grado))} msedit={msedit} handleSelectChange={changeSelection} {...props} />
             <HoursButtons saveChanges={sendMS} editing={msedit} changeEdit={changeEdit}/>
         </Panel.Body>
     </Panel>
