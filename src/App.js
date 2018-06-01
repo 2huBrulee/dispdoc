@@ -27,6 +27,7 @@ class App extends Component {
             dhenabled: false,
             msenabled: false,
             ciclo_actual: 1,
+            cicleros:[]
         }
 
         for (let i=0;i<this.state.rows.length*this.state.columns.length;i++)
@@ -55,43 +56,46 @@ class App extends Component {
     }
 
     componentDidMount(){
-        axios.get('https://apidisponibilidad.herokuapp.com/docente/docente/1').then(res=>{
-            this.setState(prevState => ({profesor:res.data}))
+        axios.get('https://apidisponibilidad.herokuapp.com/curso/ciclos').then(res_ciclo => {
+            this.setState({cicleros:res_ciclo.data})
         }).then(
-            axios.get('https://apidisponibilidad.herokuapp.com/curso/curso').then(resi =>{
-                console.log(resi.data)
-                axios.get('https://apidisponibilidad.herokuapp.com/curso/docente/1').then(res4 =>{
-                    let selectedArray = res4.data.map(n=>n.id_curso)
-                    this.setState(prevState => {
-                        console.log(prevState.coursesSelection)
-                        return {values: resi.data,
-                            coursesSelection: this.expandDong(prevState,resi.data).map((n,pos)=>
-                                Object.assign(n,{cursos:resi.data[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
-                            )}})
-                })
-                //this.setState(prevState => ({values: resi.data, coursesSelection:this.expandDong(prevState,resi.data)}));
+            axios.get('https://apidisponibilidad.herokuapp.com/docente/docente/1').then(res=>{
+                this.setState(prevState => ({profesor:res.data}))
             }).then(
-                axios.get('https://apidisponibilidad.herokuapp.com/disponibilidad/api/1').then(res2 =>{
-                    this.setState(prevState => ({
-                        selection: JSON.parse(res2.data)
-                    }));
+                axios.get('https://apidisponibilidad.herokuapp.com/curso/cursos').then(resi =>{
+                    console.log(resi.data)
+                    axios.get('https://apidisponibilidad.herokuapp.com/curso/docente/1/1').then(res4 =>{
+                        let selectedArray = res4.data.map(n=>n.id_curso)
+                        this.setState(prevState => {
+                            console.log(prevState.coursesSelection)
+                            return {values: resi.data,
+                                coursesSelection: this.expandDong(prevState,resi.data).map((n,pos)=>
+                                    Object.assign(n,{cursos:resi.data[pos].cursos.filter(curso=>selectedArray.includes(curso.id_curso))})
+                                )}})
+                    })
+                    //this.setState(prevState => ({values: resi.data, coursesSelection:this.expandDong(prevState,resi.data)}));
                 }).then(
-                    axios.get('https://apidisponibilidad.herokuapp.com/docente/docente/1').then(res3 =>{
+                    axios.get('https://apidisponibilidad.herokuapp.com/disponibilidad/api/1/1').then(res2 =>{
                         this.setState(prevState => ({
-                            profesor: res3.data
-                        }))})).then(
-                            axios.get('https://apidisponibilidad.herokuapp.com/docente/docente/1').then(resina =>{
-                                this.setState(prevState => ({
-                                   courseHistory:resina.data
-                                }))
-                                })
-                )
-            ));
+                            selection: JSON.parse(res2.data)
+                        }));
+                    }).then(
+                        axios.get('https://apidisponibilidad.herokuapp.com/docente/docente/1').then(res3 =>{
+                            this.setState(prevState => ({
+                                profesor: res3.data
+                            }))})).then(
+                                axios.get('https://apidisponibilidad.herokuapp.com/docente/docente/1').then(resina =>{
+                                    this.setState(prevState => ({
+                                       courseHistory:resina.data
+                                    }))
+                                    })
+                    )
+            )));
     }
 
     changeDHEditable = () => {
         if (this.state.dhenabled) {
-            axios.get('https://apidisponibilidad.herokuapp.com/disponibilidad/api/1').then(res =>{
+            axios.get('https://apidisponibilidad.herokuapp.com/disponibilidad/api/1/1').then(res =>{
                 this.setState(prevState => ({
                     selection: JSON.parse(res.data),
                     dhenabled: !prevState.dhenabled
@@ -111,7 +115,7 @@ class App extends Component {
 
     changeMSEditable = () => {
         if (this.state.msenabled) {
-            axios.get('https://apidisponibilidad.herokuapp.com/curso/docente/1').then(res4 =>{
+            axios.get('https://apidisponibilidad.herokuapp.com/curso/docente/1/1').then(res4 =>{
                 let selectedArray = res4.data.map(n=>n.id_curso)
                 this.setState(prevState => {
                     console.log(prevState.coursesSelection)
@@ -163,7 +167,7 @@ class App extends Component {
     }
 
     sendDisp = () => {
-        axios.post('https://apidisponibilidad.herokuapp.com/disponibilidad/api/1',{selection:this.state.selection}).then(res =>
+        axios.post('https://apidisponibilidad.herokuapp.com/disponibilidad/api/1/1',{selection:this.state.selection}).then(res =>
             this.setState(prevState => ({
                 dhenabled: !prevState.dhenabled
             })
@@ -172,7 +176,7 @@ class App extends Component {
     }
 
     sendMS = () => {
-        axios.post('https://apidisponibilidad.herokuapp.com/curso/docente/1',{coursesSelection:this.state.coursesSelection}).then(res =>
+        axios.post('https://apidisponibilidad.herokuapp.com/curso/docente/1/1',{coursesSelection:this.state.coursesSelection}).then(res =>
             this.setState(prevState => ({
                 msenabled: !prevState.msenabled
             })
@@ -205,7 +209,7 @@ class App extends Component {
 
     render() {
         const { select, handleMS, getPDF,sendDisp,changeDHEditable,changeMSEditable,sendMS } = this;
-        const { rows,columns,selection,enabled,values,coursesSelection, profesor, dhenabled, msenabled } = this.state;
+        const { rows,columns,selection,enabled,values,coursesSelection, profesor, dhenabled, msenabled, cicleros } = this.state;
         return (
             <div className="App">
                 <header className="App-header">
@@ -230,7 +234,10 @@ class App extends Component {
                         <FormGroup controlId="formControlsSelect">
                             <ControlLabel>Ciclos</ControlLabel>
                             <FormControl componentClass="select" placeholder="seleccionar ciclo">
-                                <option value="select">select</option>
+                                {(cicleros.length>0) ?
+                                    cicleros.map((n,i)=><option key={i} value={i}>{n.nom_ciclo}</option>):
+                                    <option value="select">select</option>
+                                }
                             </FormControl>
                         </FormGroup>
                         <DisponibilidadPanel rows={rows} columns={columns} selection={selection}

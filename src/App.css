@@ -52,14 +52,14 @@ div.box {
   width: 80px;
   margin: 1px;
   float: left;
-  background-color: #DBFD0D;
+  background-color: #BFBFBF;
 
 }
 
 div.selected{
-  background-color: #FD0D34;
+  background-color: #3B83BD;
 }
 
 div.disabled{
-  background-color: #BDBDBD;
+  background-color: #5F5F5F;
 }
