@@ -55,10 +55,10 @@ class App extends Component {
     }
 
     componentDidMount(){
-        axios.get('https://apidisponibilidad.herokuapp.com/docente/api/1').then(res=>{
+        axios.get('https://apidisponibilidad.herokuapp.com/docente/docente/1').then(res=>{
             this.setState(prevState => ({profesor:res.data}))
         }).then(
-            axios.get('https://apidisponibilidad.herokuapp.com/curso/api').then(resi =>{
+            axios.get('https://apidisponibilidad.herokuapp.com/curso/curso').then(resi =>{
                 console.log(resi.data)
                 axios.get('https://apidisponibilidad.herokuapp.com/curso/docente/1').then(res4 =>{
                     let selectedArray = res4.data.map(n=>n.id_curso)
@@ -76,11 +76,11 @@ class App extends Component {
                         selection: JSON.parse(res2.data)
                     }));
                 }).then(
-                    axios.get('https://apidisponibilidad.herokuapp.com/docente/api/1').then(res3 =>{
+                    axios.get('https://apidisponibilidad.herokuapp.com/docente/docente/1').then(res3 =>{
                         this.setState(prevState => ({
                             profesor: res3.data
                         }))})).then(
-                            axios.get('https://apidisponibilidad.herokuapp.com/docente/api/1').then(resina =>{
+                            axios.get('https://apidisponibilidad.herokuapp.com/docente/docente/1').then(resina =>{
                                 this.setState(prevState => ({
                                    courseHistory:resina.data
                                 }))
